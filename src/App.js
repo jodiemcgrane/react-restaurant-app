@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 //Imported Components
+import Navbar from './components/Navbar';
 
 //Imported Pages
 import Home from './pages/Home';
@@ -9,6 +10,7 @@ import RestaurantsIndex from './pages/restaurants/Index';
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/restaurants" element={<RestaurantsIndex />} />
