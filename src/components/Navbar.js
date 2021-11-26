@@ -12,34 +12,54 @@ import MenuIcon from '@mui/icons-material/Menu';
 const Navbar = (props) => {
 
     let logoutButton;
+    let burgerButton;
 
     if (props.authenticated) {
-        //soft bracket for multiple lines of JSX, error id not
+        //soft bracket for multiple lines of JSX, error if not
         logoutButton = (
-          <button onClick={() => props.onAuthenticated(false)}>Logout</button>
+            <Button
+                color="inherit"
+                onClick={() => props.onAuthenticated(false)}
+            >Logout
+            </Button>
         )
-      }
+        burgerButton = (
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+                <MenuIcon
+                    onClick={() => props.onAuthenticated(false)}
+                />
+            </IconButton>
+        )
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
 
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>RestaurantReviews</Link>
+                    {burgerButton}
+
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1 }}
+                    >
+                        <Link
+                            to="/"
+                            style={{ color: 'inherit', textDecoration: 'inherit' }}
+                        >
+                            RestaurantReviews
+                        </Link>
                     </Typography>
 
-                    <Button color="inherit">Login</Button>
                     {logoutButton}
+
                 </Toolbar>
             </AppBar>
         </Box>

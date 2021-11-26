@@ -1,7 +1,8 @@
 import axios from "axios"
 import { useState } from "react"
 
-// import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const LoginForm = (props) => {
 
@@ -31,13 +32,21 @@ const LoginForm = (props) => {
 
     return (
         <div>
-            {/* <TextField id="outlined-basic" label="Email" type="email" variant="outlined" />
-          <TextField id="outlined-basic" label="Password" type="password" variant="outlined" /> */}
+            <TextField
+                id="outlined-basic"
+                label="Email"
+                type="email"
+                variant="outlined"
+                onChange={handleForm} />
 
-            Email:<input type="text" name="email" onChange={handleForm} />
-            Password:<input type="password" name="password" onChange={handleForm} />
+            <TextField
+                id="outlined-basic"
+                label="Password"
+                type="password"
+                variant="outlined"
+                onChange={handleForm} />
 
-            <button onClick={submitForm}>Login</button>
+            <Button variant="contained" onClick={submitForm}>Login</Button>
 
         </div>
     );
