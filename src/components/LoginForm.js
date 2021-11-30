@@ -1,10 +1,13 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 const LoginForm = (props) => {
+
+    let navigate = useNavigate();
 
     const [form, setForm] = useState({ email: "jodie@middle.earth", password: "secret123" })
 
@@ -26,6 +29,7 @@ const LoginForm = (props) => {
             .then(response => {
                 console.log(response.data.auth_token)
                 props.onAuthenticated(true, response.data.auth_token)
+                navigate('/home', { replace: true })
             })
             .catch(err => console.log(err))
     }
