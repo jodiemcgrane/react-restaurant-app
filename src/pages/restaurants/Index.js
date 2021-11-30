@@ -1,8 +1,15 @@
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 import axios from "axios";
 import { useEffect, useState } from 'react'
 
 const Index = () => {
-    const [restaurants, setRestaurants] = useState(null)
+    const [restaurants, setRestaurants] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:8000/restaurants')
@@ -17,21 +24,39 @@ const Index = () => {
 
     if (!restaurants) return null
 
-    const restaurantsList = restaurants.map(restaurant => {
-        return (
-            <div>
-                <p><b>Name: </b> {restaurant.name} </p>
-                <p><b>Cuisine: </b> {restaurant.cuisine} </p>
-                <hr />
-            </div>
-        )
-    })
-
     return (
         <div>
-            <h2>Restaurants</h2>
-            <p>This is the Restaurants Index page</p>
-            {restaurantsList}
+
+            <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Cuisine</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {restaurants
+                            .map((restaurants) => {
+                                return (
+                                    <TableRow>
+                                        <TableCell>
+                                            {restaurants._id}
+                                        </TableCell>
+                                        <TableCell>
+                                            {restaurants.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {restaurants.cuisine}
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
         </div>
     );
 }
