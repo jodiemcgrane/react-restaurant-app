@@ -7,11 +7,17 @@ import Navbar from './components/Navbar';
 //Imported Pages
 import Welcome from './pages/Welcome';
 import Home from './pages/Home';
+
+//Restaurants
 import RestaurantsIndex from './pages/restaurants/Index';
+import RestaurantsShow from './pages/restaurants/Show';
+import RestaurantsCreate from './pages/restaurants/Create';
+import RestaurantsEdit from './pages/restaurants/Edit';
 
 function App() {
 
   const [authenticated, setAuthenticated] = useState(false)
+  let protectedRestaurants;
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -29,6 +35,16 @@ function App() {
     }
   }
 
+  if (authenticated) {
+    protectedRestaurants = (
+      <>
+        <Route path="/restaurants/:id" element={<RestaurantsShow />} />
+        <Route path="/restaurants/create" element={<RestaurantsCreate />} />
+        <Route path="/restuarants/:id/edit" element={<RestaurantsEdit />} />
+      </>
+    )
+  }
+
   return (
     <Router>
       <Navbar onAuthenticated={onAuthenticated} authenticated={authenticated} />
@@ -36,6 +52,7 @@ function App() {
         <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
         <Route path="/home" element={<Home />} />
         <Route path="/restaurants" element={<RestaurantsIndex />} />
+        {protectedRestaurants}
       </Routes>
     </Router>
   );
