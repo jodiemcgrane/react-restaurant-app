@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useState } from "react"
 import AppBar from '@mui/material/AppBar';
@@ -12,6 +12,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const Navbar = (props) => {
+
+    let navigate = useNavigate();
+
+    const logout = () => {
+        props.onAuthenticated(false)
+        navigate('/', { replace: true })
+      }
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -55,7 +62,7 @@ const Navbar = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={() => { handleClose(); props.onAuthenticated(false); }}>Sign Out</MenuItem>
+                    <MenuItem onClick={() => { handleClose(); logout(); }}>Sign Out</MenuItem>
                 </Menu>
             </>
         )
