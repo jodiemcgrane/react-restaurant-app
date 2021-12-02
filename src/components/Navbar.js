@@ -20,8 +20,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import MuiAppBar from '@mui/material/AppBar';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import HomeIcon from '@mui/icons-material/Home';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 const Navbar = (props) => {
 
@@ -160,9 +163,22 @@ const Navbar = (props) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <ListItem>
-                        <Typography>My Sidebar</Typography>
-                    </ListItem>
+                    <Link to="/home" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <HomeIcon color="primary" />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </Link>
+                    <Link to="/restaurants" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <RestaurantIcon color="primary" />
+                            </ListItemIcon>
+                            <ListItemText primary="Restaurants" />
+                        </ListItemButton>
+                    </Link>
                 </List>
             </Drawer>
 

@@ -35,7 +35,6 @@ const Index = () => {
                 <Table sx={{ maxWidth: 950 }} align="center">
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Borough</TableCell>
                             <TableCell>Cuisine</TableCell>
@@ -47,9 +46,6 @@ const Index = () => {
                             .map((restaurants) => {
                                 return (
                                     <TableRow>
-                                        <TableCell>
-                                            {restaurants._id}
-                                        </TableCell>
                                         <TableCell>
                                             {restaurants.name}
                                         </TableCell>
