@@ -35,7 +35,7 @@ const LoginForm = (props) => {
     }
 
     return (
-        <div>
+        <>
             <TextField
                 id="outlined-basic"
                 label="Email"
@@ -51,8 +51,7 @@ const LoginForm = (props) => {
                 onChange={handleForm} />
 
             <Button variant="contained" onClick={submitForm}>Login</Button>
-
-        </div>
+        </>
     );
 }
 

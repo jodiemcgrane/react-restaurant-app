@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 //MUI
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
 //Imported Components
 import Navbar from './components/Navbar';

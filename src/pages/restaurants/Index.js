@@ -1,13 +1,16 @@
+import axios from "axios";
+import { useEffect, useState } from 'react'
+
+//Table MUI
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
 
-import axios from "axios";
-import { useEffect, useState } from 'react'
+import Paper from '@mui/material/Paper';
 
 const Index = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -29,13 +32,14 @@ const Index = () => {
         <div>
 
             <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: 750 }} align="center">
+                <Table sx={{ maxWidth: 950 }} align="center">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell>Name</TableCell>
                             <TableCell>Borough</TableCell>
                             <TableCell>Cuisine</TableCell>
+                            <TableCell>Grade</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -54,6 +58,13 @@ const Index = () => {
                                         </TableCell>
                                         <TableCell>
                                             {restaurants.cuisine}
+                                        </TableCell>
+                                        <TableCell>
+                                            {
+                                                restaurants.grades[1].grade == "A" ? (
+                                                    <Chip label={restaurants.grades[1].grade} color="success" />
+                                                ) : (<Chip label={restaurants.grades[1].grade} color="warning" />)
+                                            }
                                         </TableCell>
                                     </TableRow>
                                 );
