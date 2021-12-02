@@ -4,6 +4,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 import axios from "axios";
 import { useEffect, useState } from 'react'
@@ -27,12 +28,13 @@ const Index = () => {
     return (
         <div>
 
-            <TableContainer>
-                <Table>
+            <TableContainer component={Paper}>
+                <Table sx={{ maxWidth: 750 }} align="center">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell>Name</TableCell>
+                            <TableCell>Borough</TableCell>
                             <TableCell>Cuisine</TableCell>
                         </TableRow>
                     </TableHead>
@@ -46,6 +48,9 @@ const Index = () => {
                                         </TableCell>
                                         <TableCell>
                                             {restaurants.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {restaurants.borough}
                                         </TableCell>
                                         <TableCell>
                                             {restaurants.cuisine}

@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 
+import { styled, useTheme } from '@mui/material/styles';
+
 import { useState } from "react"
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +14,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
+//Sidebar
+import Drawer from '@mui/material/Drawer';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import MuiAppBar from '@mui/material/AppBar';
+
 const Navbar = (props) => {
 
     let navigate = useNavigate();
@@ -18,7 +30,7 @@ const Navbar = (props) => {
     const logout = () => {
         props.onAuthenticated(false)
         navigate('/', { replace: true })
-      }
+    }
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,6 +41,32 @@ const Navbar = (props) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    ////////////////////Code for Sidebar/Drawer////////////////////////////////
+
+    const drawerWidth = 240;
+
+    const DrawerHeader = styled('div')(({ theme }) => ({
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        //For content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
+    }));
+
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    ///////////////End of Sidebar/Drawer code///////////////////
 
     let accountIcon;
     let burgerButton;
@@ -73,6 +111,7 @@ const Navbar = (props) => {
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
+                onClick={handleDrawerOpen}
             >
                 <MenuIcon />
             </IconButton>
@@ -80,8 +119,8 @@ const Navbar = (props) => {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <Box sx={{ display: 'flex' }}>
+            <AppBar position="fixed" open={open}>
                 <Toolbar>
                     {burgerButton}
                     <Typography
@@ -101,6 +140,32 @@ const Navbar = (props) => {
 
                 </Toolbar>
             </AppBar>
+            <Drawer
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                    },
+                }}
+                variant="persistent"
+                anchor="left"
+                open={open}
+            >
+                <DrawerHeader>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    </IconButton>
+                </DrawerHeader>
+                <Divider />
+                <List>
+                    <ListItem>
+                        <Typography>My Sidebar</Typography>
+                    </ListItem>
+                </List>
+            </Drawer>
+
         </Box>
     );
 }

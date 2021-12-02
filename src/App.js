@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
+//MUI
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
 //Imported Components
 import Navbar from './components/Navbar';
 
@@ -48,12 +52,14 @@ function App() {
   return (
     <Router>
       <Navbar onAuthenticated={onAuthenticated} authenticated={authenticated} />
-      <Routes>
-        <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/restaurants" element={<RestaurantsIndex />} />
-        {protectedRestaurants}
-      </Routes>
+      <Container sx={{ p: 10 }}>
+        <Routes>
+          <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/restaurants" element={<RestaurantsIndex />} />
+          {protectedRestaurants}
+        </Routes>
+      </Container>
     </Router>
   );
 }

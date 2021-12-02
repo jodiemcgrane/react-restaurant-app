@@ -1,15 +1,25 @@
-import Card from '@mui/material/Card';
-
 import LoginForm from "../components/LoginForm";
+
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 
 const Welcome = (props) => {
     return (
-        <div>
-            <Card>
+        <Grid container>
+            <Grid item md={6}>
+
                 <h1>The Welcome Page</h1>
                 {!props.authenticated ? <LoginForm onAuthenticated={props.onAuthenticated} /> : ""}
-            </Card>
-        </div>
+
+            </Grid>
+            <Grid item md={6}>
+
+                <h1>The Welcome Page</h1>
+                {!props.authenticated ? <LoginForm onAuthenticated={props.onAuthenticated} /> : ""}
+
+            </Grid>
+        </Grid>
+
     );
 }
 
