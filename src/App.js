@@ -51,7 +51,7 @@ function App() {
   return (
     <Router>
       <Navbar onAuthenticated={onAuthenticated} authenticated={authenticated} />
-      <Container sx={{ p: 10 }}>
+      <Container sx={{ p: 15 }}>
         <Routes>
           <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
           <Route path="/home" element={<Home />} />

@@ -5,6 +5,7 @@ import * as styles from '../styles/welcome.module.css'
 import LoginImage from '../images/login.svg'
 
 import Grid from '@mui/material/Grid';
+import { shadows } from '@mui/system';
 
 //Card MUI
 import Card from '@mui/material/Card';
@@ -12,12 +13,11 @@ import CardContent from '@mui/material/CardContent';
 
 const Welcome = (props) => {
     return (
-        <Card>
+        <Card sx={{ boxShadow: 3 }}>
             <CardContent>
                 <Grid container>
                     <Grid item md={6}>
 
-                        <h1>The Welcome Page</h1>
                         {!props.authenticated ? <LoginForm onAuthenticated={props.onAuthenticated} /> : ""}
 
                     </Grid>

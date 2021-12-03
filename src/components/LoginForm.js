@@ -1,9 +1,17 @@
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import * as styles from '../styles/form.module.css'
+
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 import TextField from '@mui/material/TextField';
+import FormGroup from '@mui/material/FormGroup';
+import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const LoginForm = (props) => {
 
@@ -35,23 +43,63 @@ const LoginForm = (props) => {
     }
 
     return (
-        <>
-            <TextField
-                id="outlined-basic"
-                label="Email"
-                type="email"
-                variant="outlined"
-                onChange={handleForm} />
+        <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="50vh"
+        >
+            <Grid item md={6}>
+                <Typography variant="h4" sx={{ mb: 1 }}>
+                    RestaurantsReviews
+                </Typography>
+                <Typography className={styles.grey} sx={{ mb: 1 }} variant="subtitle1">
+                    Please login below
+                </Typography>
+                <FormGroup>
+                    <FormControl>
 
-            <TextField
-                id="outlined-basic"
-                label="Password"
-                type="password"
-                variant="outlined"
-                onChange={handleForm} />
+                        <TextField
+                            id="outlined-basic"
+                            label="Email"
+                            type="email"
+                            variant="outlined"
+                            onChange={handleForm}
+                            sx={{ m: 1.5 }} />
 
-            <Button variant="contained" onClick={submitForm}>Login</Button>
-        </>
+                        <TextField
+                            id="outlined-basic"
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            onChange={handleForm}
+                            sx={{ m: 1.5 }} />
+
+                        <Typography
+                            className={styles.grey}
+                            sx={{ mb: 1 }}
+                            variant="subtitle1">
+                            Not a member? Register <Link to="/" underline="hover">here</Link>.
+                        </Typography>
+
+                        <Typography
+                            align="center"
+                        >
+                            <Button
+                                variant="contained"
+                                size="large"
+                                sx={{ m: 1, minWidth: 175 }}
+                                onClick={submitForm}
+                            >
+                                Login
+                            </Button>
+                        </Typography>
+
+
+                    </FormControl>
+                </FormGroup>
+            </Grid>
+        </Box>
     );
 }
 
