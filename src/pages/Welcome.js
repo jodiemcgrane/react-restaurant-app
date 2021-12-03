@@ -5,7 +5,6 @@ import * as styles from '../styles/welcome.module.css'
 import LoginImage from '../images/login.svg'
 
 import Grid from '@mui/material/Grid';
-import { shadows } from '@mui/system';
 
 //Card MUI
 import Card from '@mui/material/Card';

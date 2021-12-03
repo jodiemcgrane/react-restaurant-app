@@ -67,7 +67,7 @@ const Index = () => {
                                     </TableCell>
                                     <TableCell>
                                         {
-                                            restaurants.grades[1].grade == "A" ? (
+                                            restaurants.grades[1].grade === "A" ? (
                                                 <Chip label={restaurants.grades[1].grade} color="success" />
                                             ) : (<Chip label={restaurants.grades[1].grade} color="warning" />)
                                         }

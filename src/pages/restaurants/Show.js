@@ -15,20 +15,17 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 
 import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-
-import IconButton from '@mui/material/IconButton';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+
+import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
 
 const Show = () => {
 
     let { id } = useParams()
     const [restaurant, setRestaurant] = useState(null)
+    const [comments, setComments] = useState([])
 
     let token = localStorage.getItem('token')
 
@@ -41,6 +38,7 @@ const Show = () => {
             .then(response => {
                 console.log(response.data.restaurant)
                 setRestaurant(response.data.restaurant)
+                setComments(response.data.restaurant.comments)
             })
             .catch(err => {
                 console.log(`Error: ${err}`)
@@ -48,6 +46,7 @@ const Show = () => {
     }, [id, token])
 
     if (!restaurant) return null
+    if (!comments) return null
 
 
     return (
@@ -70,7 +69,7 @@ const Show = () => {
                         title={restaurant.name}
                         subheader={restaurant.borough}
                         action={
-                            restaurant.grades[1].grade == "A" ? (
+                            restaurant.grades[1].grade === "A" ? (
                                 <Chip label={restaurant.grades[1].grade} color="success" sx={{ p: 1, mt: 1, mr: 1 }} />
                             ) : (<Chip label={restaurant.grades[1].grade} color="warning" sx={{ p: 1, mt: 1, mr: 1 }} />)
                         }
@@ -107,6 +106,28 @@ const Show = () => {
                                     </Typography>
                                 </Typography>
 
+                            </Stack>
+
+                            <Stack>
+                                <Typography variant="h5">Comments</Typography>
+                                <List>
+                                    {comments
+                                        .map((comments) => {
+                                            return (
+                                                <ListItem alignItems="flex-start">
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <RestaurantIcon color='inherit' />
+                                                        </Avatar>
+                                                        <ListItemText
+                                                            primary={comments.name}
+                                                            secondary={comments.text}
+                                                        />
+                                                    </ListItemAvatar>
+                                                </ListItem>
+                                            );
+                                        })}
+                                </List>
                             </Stack>
 
                         </CardContent>
