@@ -163,7 +163,14 @@ const Navbar = (props) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <Link to="/home" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <Link
+                        to="/home"
+                        style={{
+                            color: 'inherit',
+                            textDecoration: 'inherit'
+                        }}
+                        onClick={handleDrawerClose}
+                    >
                         <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon color="primary" />
@@ -171,7 +178,14 @@ const Navbar = (props) => {
                             <ListItemText primary="Home" />
                         </ListItemButton>
                     </Link>
-                    <Link to="/restaurants" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <Link
+                        to="/restaurants"
+                        style={{
+                            color: 'inherit',
+                            textDecoration: 'inherit'
+                        }}
+                        onClick={handleDrawerClose}
+                    >
                         <ListItemButton>
                             <ListItemIcon>
                                 <RestaurantIcon color="primary" />
@@ -180,7 +194,10 @@ const Navbar = (props) => {
                         </ListItemButton>
                     </Link>
                 </List>
-                <List sx={{ mt: "auto", mb: 2 }}>
+                <List
+                    sx={{ mt: "auto", mb: 2 }}
+                    onClick={handleDrawerClose}
+                >
                     <Link to="/user" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                         <ListItemButton>
                             <ListItemIcon>
