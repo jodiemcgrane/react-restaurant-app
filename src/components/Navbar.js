@@ -180,6 +180,16 @@ const Navbar = (props) => {
                         </ListItemButton>
                     </Link>
                 </List>
+                <List sx={{ mt: "auto", mb: 2 }}>
+                    <Link to="/user" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <AccountCircle color="primary" />
+                            </ListItemIcon>
+                            <ListItemText primary="My Profile" />
+                        </ListItemButton>
+                    </Link>
+                </List>
             </Drawer>
 
         </Box>

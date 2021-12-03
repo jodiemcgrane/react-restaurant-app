@@ -17,6 +17,9 @@ import RestaurantsShow from './pages/restaurants/Show';
 import RestaurantsCreate from './pages/restaurants/Create';
 import RestaurantsEdit from './pages/restaurants/Edit';
 
+//User
+import UserIndex from './pages/user/Index';
+
 function App() {
 
   const [authenticated, setAuthenticated] = useState(false)
@@ -56,6 +59,7 @@ function App() {
           <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/restaurants" element={<RestaurantsIndex />} />
+          <Route path="/user" element={<UserIndex />} />
           {protectedRestaurants}
         </Routes>
       </Container>
