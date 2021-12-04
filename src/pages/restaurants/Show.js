@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
+import moment from 'moment'
 
 //MUI
 import Grid from '@mui/material/Grid';
@@ -17,6 +18,7 @@ import Chip from '@mui/material/Chip';
 import CardContent from '@mui/material/CardContent';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
@@ -116,14 +118,26 @@ const Show = () => {
                                             return (
                                                 <ListItem alignItems="flex-start">
                                                     <ListItemAvatar>
-                                                        <Avatar>
-                                                            <RestaurantIcon color='inherit' />
+                                                        <Avatar sx={{ bgcolor: '#1976D2' }}>
+                                                            <AccountCircle color='inherit' />
                                                         </Avatar>
-                                                        <ListItemText
-                                                            primary={comments.name}
-                                                            secondary={comments.text}
-                                                        />
                                                     </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={comments.name}
+                                                        secondary={
+                                                            <>
+                                                                <Typography
+                                                                    sx={{ display: 'inline' }}
+                                                                    component="span"
+                                                                    variant="body2"
+                                                                    color="text.primary"
+                                                                >
+                                                                    {comments.text}
+                                                                </Typography>
+                                                                {" — " + moment(comments.date).format('LL')}
+                                                            </>
+                                                        }
+                                                    />
                                                 </ListItem>
                                             );
                                         })}
