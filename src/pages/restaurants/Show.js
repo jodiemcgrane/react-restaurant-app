@@ -19,11 +19,33 @@ import CardContent from '@mui/material/CardContent';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import Stack from '@mui/material/Stack';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+import CommentIcon from '@mui/icons-material/Comment';
+import Popover from '@mui/material/Popover';
+import TextField from '@mui/material/TextField';
+import InputBase from '@mui/material/InputBase';
+import Paper from '@mui/material/Paper';
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
 import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
 
 const Show = () => {
+
+    //Popover
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handlePopoverOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+
+    //Restaurant & Comments
 
     let { id } = useParams()
     const [restaurant, setRestaurant] = useState(null)
@@ -49,7 +71,6 @@ const Show = () => {
 
     if (!restaurant) return null
     if (!comments) return null
-
 
     return (
         <Box
@@ -110,18 +131,20 @@ const Show = () => {
 
                             </Stack>
 
-                            <Stack>
+                            <Stack sx={{ mt: 5 }}>
                                 <Typography variant="h5">Comments</Typography>
                                 <List>
                                     {comments
                                         .map((comments) => {
                                             return (
-                                                <ListItem alignItems="flex-start">
+                                                <ListItem>
+
                                                     <ListItemAvatar>
                                                         <Avatar sx={{ bgcolor: '#1976D2' }}>
                                                             <AccountCircle color='inherit' />
                                                         </Avatar>
                                                     </ListItemAvatar>
+
                                                     <ListItemText
                                                         primary={comments.name}
                                                         secondary={
@@ -134,19 +157,72 @@ const Show = () => {
                                                                 >
                                                                     {comments.text}
                                                                 </Typography>
+                                                                <br />
                                                                 {" — " + moment(comments.date).format('LL')}
+
                                                             </>
                                                         }
                                                     />
+                                                    <Stack sx={{ mt: 1.5 }}>
+                                                        <IconButton
+                                                            sx={{
+                                                                display: 'flex',
+                                                                justifyContent: 'flex-end'
+                                                            }}
+                                                            aria-owns={open ? 'mouse-over-popover' : undefined}
+                                                            aria-haspopup="true"
+                                                            onMouseEnter={handlePopoverOpen}
+                                                            onMouseLeave={handlePopoverClose}
+                                                        >
+                                                            <CommentIcon color='primary' fontSize='large' />
+                                                        </IconButton>
+                                                        <Popover
+                                                            id="mouse-over-popover"
+                                                            sx={{
+                                                                pointerEvents: 'none',
+                                                            }}
+                                                            open={open}
+                                                            anchorEl={anchorEl}
+                                                            anchorOrigin={{
+                                                                vertical: 'bottom',
+                                                                horizontal: 'center',
+                                                            }}
+                                                            transformOrigin={{
+                                                                vertical: 'top',
+                                                                horizontal: 'center',
+                                                            }}
+                                                            onClose={handlePopoverClose}
+                                                            disableRestoreFocus
+                                                        >
+                                                            <Typography sx={{ p: 1 }}>See More</Typography>
+                                                        </Popover>
+                                                    </Stack>
                                                 </ListItem>
                                             );
                                         })}
                                 </List>
-                            </Stack>
 
+                                <Paper
+                                    component="form"
+                                    sx={{ p: '2px 4px', mt: 2, display: 'flex', alignItems: 'center' }}
+                                >
+                                    <InputBase
+                                        sx={{ ml: 1, flex: 1 }}
+                                        placeholder="Add Comment"
+                                    />
+                                    <IconButton
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-end'
+                                        }}
+                                        type='submit'
+                                    >
+                                        <AddCircleRoundedIcon color='primary' fontSize='large' />
+                                    </IconButton>
+                                </Paper>
+                            </Stack>
                         </CardContent>
                     </Box>
-
                 </Card>
             </Grid>
         </Box>
