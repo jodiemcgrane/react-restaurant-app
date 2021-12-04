@@ -45,6 +45,34 @@ const Show = () => {
 
     const open = Boolean(anchorEl);
 
+    //Create Comment
+
+    const [form, setForm] = useState({})
+
+    const handleForm = e => {
+
+        setForm(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const submitForm = () => {
+        console.log(form)
+
+        let token = localStorage.getItem('token')
+
+        axios.post('http://localhost:8000/comments/create', form, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+    }
+
     //Restaurant & Comments
 
     let { id } = useParams()
@@ -106,7 +134,7 @@ const Show = () => {
                     }}>
                         <CardContent>
 
-                            <Stack direction="row" spacing={12}>
+                            <Stack direction="row" spacing={12} sx={{ mb: 5 }}>
 
                                 <Typography variant="h5">
                                     Building No.
@@ -129,6 +157,21 @@ const Show = () => {
                                     </Typography>
                                 </Typography>
 
+                            </Stack>
+
+                            <Stack
+                                sx={{
+                                    p: 1
+                                }}
+                                direction="row"
+                            >
+
+                                <Typography variant="h5">
+                                    Score
+                                    <Typography variant="h1" color="text.secondary">
+                                        {restaurant.grades[1].score + ".0"}
+                                    </Typography>
+                                </Typography>
                             </Stack>
 
                             <Stack sx={{ mt: 5 }}>
@@ -209,6 +252,9 @@ const Show = () => {
                                     <InputBase
                                         sx={{ ml: 1, flex: 1 }}
                                         placeholder="Add Comment"
+                                        type="text"
+                                        name="text"
+                                        onChange={handleForm}
                                     />
                                     <IconButton
                                         sx={{
@@ -216,6 +262,7 @@ const Show = () => {
                                             justifyContent: 'flex-end'
                                         }}
                                         type='submit'
+                                        onClick={submitForm}
                                     >
                                         <AddCircleRoundedIcon color='primary' fontSize='large' />
                                     </IconButton>
