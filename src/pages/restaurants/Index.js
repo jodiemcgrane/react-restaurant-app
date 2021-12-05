@@ -2,29 +2,39 @@ import axios from "axios";
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 
-//Table MUI
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Chip from '@mui/material/Chip';
+//MUI
+import { Box, Paper, Typography, Stack } from "@mui/material";
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import Avatar from '@mui/material/Avatar';
 
-import Fade from '@mui/material/Fade';
-import Tooltip from '@mui/material/Tooltip';
+//Table+ MUI
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Chip, Tooltip, Fade } from '@mui/material';
 
-import Paper from '@mui/material/Paper';
-
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 
 const Index = () => {
+
+    const override = css`
+    position: fixed;/
+  top: 50%;
+  left: 45%;
+  bottom: 25%;
+`;
+
+    //Restaurants
+
     const [restaurants, setRestaurants] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         axios.get('http://localhost:8000/restaurants')
             .then(response => {
                 console.log(response.data.restaurants)
                 setRestaurants(response.data.restaurants)
+                setLoading(false);
             })
             .catch(err => {
                 console.log(`Error: ${err}`)
@@ -35,49 +45,96 @@ const Index = () => {
 
     return (
 
-        <TableContainer component={Paper}>
-            <Table sx={{ maxWidth: 950 }} align="center">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Borough</TableCell>
-                        <TableCell>Cuisine</TableCell>
-                        <TableCell>Grade</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {restaurants
-                        .map((restaurants) => {
-                            return (
-                                <TableRow>
-                                    <Tooltip
-                                        TransitionComponent={Fade}
-                                        title="View" placement="left"
-                                        arrow
-                                    >
-                                        <TableCell component={Link} to={`/restaurants/${restaurants._id}`}>
-                                            {restaurants.name}
-                                        </TableCell>
-                                    </Tooltip>
-                                    <TableCell>
-                                        {restaurants.borough}
-                                    </TableCell>
-                                    <TableCell>
-                                        {restaurants.cuisine}
-                                    </TableCell>
-                                    <TableCell>
-                                        {
-                                            restaurants.grades[1].grade === "A" ? (
-                                                <Chip label={restaurants.grades[1].grade} color="success" />
-                                            ) : (<Chip label={restaurants.grades[1].grade} color="warning" />)
-                                        }
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <Box>
+            <Box>
+                <Stack
+                    sx={{ p: 1, mb: 2 }}
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="flex-start"
+                    spacing={2}
+                >
+                    <Typography variant="h3">Restaurants</Typography>
+                    <Avatar sx={{ bgcolor: '#1976D2' }}>
+                        <RestaurantIcon color='inherit' />
+                    </Avatar>
+                </Stack>
+            </Box>
+
+            <TableContainer component={Paper} sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <Table sx={{ maxWidth: 950 }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Borough</TableCell>
+                            <TableCell>Cuisine</TableCell>
+                            <TableCell>Grade</TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    {loading ? (<ClipLoader
+                        css={override}
+                        size={200}
+                        color={"#1976D2"}
+                    />) : (
+                        <TableBody>
+                            {restaurants
+                                .map((restaurants) => {
+                                    return (
+                                        <TableRow>
+                                            <Tooltip
+                                                TransitionComponent={Fade}
+                                                title="View" placement="left"
+                                                arrow
+                                            >
+                                                <TableCell component={Link} to={`/restaurants/${restaurants._id}`}>
+                                                    {restaurants.name}
+                                                </TableCell>
+                                            </Tooltip>
+                                            <TableCell>
+                                                {restaurants.borough}
+                                            </TableCell>
+                                            <TableCell>
+                                                {restaurants.cuisine}
+                                            </TableCell>
+
+                                            <Tooltip
+                                                TransitionComponent={Fade}
+                                                title={`Score: ${restaurants.grades[1].score}`} placement="right"
+                                                arrow
+                                            >
+
+                                                <TableCell>
+                                                    {
+                                                        restaurants.grades[1].grade === "A" ? (
+                                                            <Chip
+                                                                label={restaurants.grades[1].grade}
+                                                                color="success"
+                                                            />
+                                                        ) : (<Chip
+                                                            label={restaurants.grades[1].grade}
+                                                            color="warning"
+                                                        />)
+                                                    }
+                                                </TableCell>
+
+                                            </Tooltip>
+
+                                        </TableRow>
+                                    );
+                                })}
+
+                        </TableBody>
+                    )
+                    }
+                </Table>
+            </TableContainer>
+
+        </Box>
 
     );
 }
