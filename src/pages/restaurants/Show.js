@@ -5,31 +5,28 @@ import axios from 'axios'
 import moment from 'moment'
 
 //MUI
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-
-import Typography from '@mui/material/Typography';
-
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
-import Chip from '@mui/material/Chip';
-
-import CardContent from '@mui/material/CardContent';
+import { Grid, Box } from '@mui/material';
+import { Typography, Card, CardHeader, CardContent, Avatar, Chip, Stack, Popover, InputBase, Paper } from '@mui/material';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import Stack from '@mui/material/Stack';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
-import Popover from '@mui/material/Popover';
-import InputBase from '@mui/material/InputBase';
-import Paper from '@mui/material/Paper';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
 import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
+import PulseLoader from "react-spinners/PulseLoader";
+import { css } from "@emotion/react";
+
 
 const Show = () => {
+
+    const override = css`
+    position: fixed;/
+  top: 50%;
+  left: 50%;
+  bottom: 25%;
+`;
 
     //Popover
     const [anchorEl, setAnchorEl] = useState(null);
@@ -77,10 +74,12 @@ const Show = () => {
     let { id } = useParams()
     const [restaurant, setRestaurant] = useState(null)
     const [comments, setComments] = useState([])
+    const [loading, setLoading] = useState(false);
 
     let token = localStorage.getItem('token')
 
     useEffect(() => {
+        setLoading(true);
         axios.get(`http://localhost:8000/restaurants/${id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -90,6 +89,7 @@ const Show = () => {
                 console.log(response.data.restaurant)
                 setRestaurant(response.data.restaurant)
                 setComments(response.data.restaurant.comments)
+                setLoading(false);
             })
             .catch(err => {
                 console.log(`Error: ${err}`)
@@ -134,7 +134,6 @@ const Show = () => {
                         <CardContent>
 
                             <Stack direction="row" spacing={12} sx={{ mb: 5 }}>
-
                                 <Typography variant="h5">
                                     Building No.
                                     <Typography variant="body2" color="text.secondary">
@@ -155,7 +154,6 @@ const Show = () => {
                                         {restaurant.address.zipcode}
                                     </Typography>
                                 </Typography>
-
                             </Stack>
 
                             <Stack
@@ -164,7 +162,6 @@ const Show = () => {
                                 }}
                                 direction="row"
                             >
-
                                 <Typography variant="h5">
                                     Score
                                     <Typography variant="h1" color="text.secondary">
@@ -175,75 +172,82 @@ const Show = () => {
 
                             <Stack sx={{ mt: 5 }}>
                                 <Typography variant="h5">Comments</Typography>
-                                <List>
-                                    {comments
-                                        .map((comments) => {
-                                            return (
-                                                <ListItem>
 
-                                                    <ListItemAvatar>
-                                                        <Avatar sx={{ bgcolor: '#1976D2' }}>
-                                                            <AccountCircle color='inherit' />
-                                                        </Avatar>
-                                                    </ListItemAvatar>
+                                {loading ? (<PulseLoader
+                                    css={override}
+                                    size={10}
+                                    color={"#1976D2"}
+                                />) : (
+                                    <List>
+                                        {comments
+                                            .map((comments) => {
+                                                return (
+                                                    <ListItem>
 
-                                                    <ListItemText
-                                                        primary={comments.name}
-                                                        secondary={
-                                                            <>
-                                                                <Typography
-                                                                    sx={{ display: 'inline' }}
-                                                                    component="span"
-                                                                    variant="body2"
-                                                                    color="text.primary"
-                                                                >
-                                                                    {comments.text}
-                                                                </Typography>
-                                                                <br />
-                                                                {" — " + moment(comments.date).format('LL')}
+                                                        <ListItemAvatar>
+                                                            <Avatar sx={{ bgcolor: '#1976D2' }}>
+                                                                <AccountCircle color='inherit' />
+                                                            </Avatar>
+                                                        </ListItemAvatar>
 
-                                                            </>
-                                                        }
-                                                    />
-                                                    <Stack sx={{ mt: 1.5 }}>
-                                                        <IconButton
-                                                            sx={{
-                                                                display: 'flex',
-                                                                justifyContent: 'flex-end'
-                                                            }}
-                                                            aria-owns={open ? 'mouse-over-popover' : undefined}
-                                                            aria-haspopup="true"
-                                                            onMouseEnter={handlePopoverOpen}
-                                                            onMouseLeave={handlePopoverClose}
-                                                        >
-                                                            <CommentIcon color='primary' fontSize='large' />
-                                                        </IconButton>
-                                                        <Popover
-                                                            id="mouse-over-popover"
-                                                            sx={{
-                                                                pointerEvents: 'none',
-                                                            }}
-                                                            open={open}
-                                                            anchorEl={anchorEl}
-                                                            anchorOrigin={{
-                                                                vertical: 'bottom',
-                                                                horizontal: 'center',
-                                                            }}
-                                                            transformOrigin={{
-                                                                vertical: 'top',
-                                                                horizontal: 'center',
-                                                            }}
-                                                            onClose={handlePopoverClose}
-                                                            disableRestoreFocus
-                                                        >
-                                                            <Typography sx={{ p: 1 }}>See More</Typography>
-                                                        </Popover>
-                                                    </Stack>
-                                                </ListItem>
-                                            );
-                                        })}
-                                </List>
+                                                        <ListItemText
+                                                            primary={comments.name}
+                                                            secondary={
+                                                                <>
+                                                                    <Typography
+                                                                        sx={{ display: 'inline' }}
+                                                                        component="span"
+                                                                        variant="body2"
+                                                                        color="text.primary"
+                                                                    >
+                                                                        {comments.text}
+                                                                    </Typography>
+                                                                    <br />
+                                                                    {" — " + moment(comments.date).format('LL')}
 
+                                                                </>
+                                                            }
+                                                        />
+                                                        <Stack sx={{ mt: 1.5 }}>
+                                                            <IconButton
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    justifyContent: 'flex-end'
+                                                                }}
+                                                                aria-owns={open ? 'mouse-over-popover' : undefined}
+                                                                aria-haspopup="true"
+                                                                onMouseEnter={handlePopoverOpen}
+                                                                onMouseLeave={handlePopoverClose}
+                                                            >
+                                                                <CommentIcon color='primary' fontSize='large' />
+                                                            </IconButton>
+                                                            <Popover
+                                                                id="mouse-over-popover"
+                                                                sx={{
+                                                                    pointerEvents: 'none',
+                                                                }}
+                                                                open={open}
+                                                                anchorEl={anchorEl}
+                                                                anchorOrigin={{
+                                                                    vertical: 'bottom',
+                                                                    horizontal: 'center',
+                                                                }}
+                                                                transformOrigin={{
+                                                                    vertical: 'top',
+                                                                    horizontal: 'center',
+                                                                }}
+                                                                onClose={handlePopoverClose}
+                                                                disableRestoreFocus
+                                                            >
+                                                                <Typography sx={{ p: 1 }}>See More</Typography>
+                                                            </Popover>
+                                                        </Stack>
+                                                    </ListItem>
+                                                );
+                                            })}
+                                    </List>
+                                )
+                                }
                                 <Paper
                                     component="form"
                                     sx={{ p: '2px 4px', mt: 2, display: 'flex', alignItems: 'center' }}
@@ -271,7 +275,7 @@ const Show = () => {
                     </Box>
                 </Card>
             </Grid>
-        </Box>
+        </Box >
 
     );
 }
