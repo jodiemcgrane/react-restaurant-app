@@ -1,6 +1,6 @@
 import LoginForm from "../components/LoginForm";
 
-import * as styles from '../styles/welcome.module.css'
+import * as styles from '../styles/images.module.css'
 
 import LoginImage from '../images/login.svg'
 
