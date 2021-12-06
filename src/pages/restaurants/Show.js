@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
@@ -17,16 +17,15 @@ import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
-import { Festival, FestivalSharp } from '@mui/icons-material';
-
 
 const Show = () => {
 
+    //Loader CSS
     const override = css`
     position: fixed;/
-  top: 50%;
-  left: 50%;
-  bottom: 25%;
+    top: 50%;
+    left: 50%;
+    bottom: 25%;
 `;
 
     //Popover
@@ -44,6 +43,7 @@ const Show = () => {
 
     //Restaurant & Comments
 
+    let navigate = useNavigate()
     let { id } = useParams()
     const [restaurant, setRestaurant] = useState(null)
     const [comments, setComments] = useState([])
@@ -99,6 +99,7 @@ const Show = () => {
         })
             .then(response => {
                 console.log(response.data)
+                navigate(`/restaurants/${id}`)
             })
             .catch(err => console.log(err))
     }

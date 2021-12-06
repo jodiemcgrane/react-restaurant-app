@@ -79,7 +79,7 @@ const LoginForm = (props) => {
                             className={styles.grey}
                             sx={{ mb: 1 }}
                             variant="subtitle1">
-                            Not a member? Register <Link to="/" underline="hover">here</Link>.
+                            Not a member? Register <Link to="/register" underline="hover">here</Link>.
                         </Typography>
 
                         <Typography

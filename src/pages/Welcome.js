@@ -4,9 +4,8 @@ import * as styles from '../styles/welcome.module.css'
 
 import LoginImage from '../images/login.svg'
 
+//MUI
 import Grid from '@mui/material/Grid';
-
-//Card MUI
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 

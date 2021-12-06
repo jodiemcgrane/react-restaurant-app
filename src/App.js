@@ -9,13 +9,12 @@ import Navbar from './components/Navbar';
 
 //Imported Pages
 import Welcome from './pages/Welcome';
+import Register from './pages/Register';
 import Home from './pages/Home';
 
 //Restaurants
 import RestaurantsIndex from './pages/restaurants/Index';
 import RestaurantsShow from './pages/restaurants/Show';
-import RestaurantsCreate from './pages/restaurants/Create';
-import RestaurantsEdit from './pages/restaurants/Edit';
 
 //User
 import UserIndex from './pages/user/Index';
@@ -45,8 +44,6 @@ function App() {
     protectedRestaurants = (
       <>
         <Route path="/restaurants/:id" element={<RestaurantsShow />} />
-        <Route path="/restaurants/create" element={<RestaurantsCreate />} />
-        <Route path="/restuarants/:id/edit" element={<RestaurantsEdit />} />
       </>
     )
   }
@@ -57,6 +54,7 @@ function App() {
       <Container sx={{ p: 15 }}>
         <Routes>
           <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/restaurants" element={<RestaurantsIndex />} />
           <Route path="/user" element={<UserIndex />} />
