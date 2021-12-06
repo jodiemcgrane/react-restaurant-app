@@ -17,6 +17,7 @@ import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
+import { Festival, FestivalSharp } from '@mui/icons-material';
 
 
 const Show = () => {
@@ -40,34 +41,6 @@ const Show = () => {
     };
 
     const open = Boolean(anchorEl);
-
-    //Create Comment
-
-    const [form, setForm] = useState({})
-
-    const handleForm = e => {
-
-        setForm(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const submitForm = () => {
-        console.log(form)
-
-        let token = localStorage.getItem('token')
-
-        axios.post('http://localhost:8000/comments/create', form, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch(err => console.log(err))
-    }
 
     //Restaurant & Comments
 
@@ -96,8 +69,44 @@ const Show = () => {
             })
     }, [id, token])
 
+    //Create Comment
+
+    const [form, setForm] = useState({})
+
+    useEffect(() => {
+        setForm({
+            restaurant_id: id,
+        })
+    }, [restaurant])
+
+    const handleForm = e => {
+
+        setForm(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const submitForm = () => {
+        console.log(form)
+
+        let token = localStorage.getItem('token')
+
+        axios.post('http://localhost:8000/comments/create', form, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+    }
+
     if (!restaurant) return null
     if (!comments) return null
+
+
 
     return (
         <Box
@@ -256,7 +265,7 @@ const Show = () => {
                                         sx={{ ml: 1, flex: 1 }}
                                         placeholder="Add Comment"
                                         type="text"
-                                        name="text"
+                                        name="comment"
                                         onChange={handleForm}
                                     />
                                     <IconButton
