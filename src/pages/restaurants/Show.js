@@ -12,11 +12,23 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import TextField from '@mui/material/TextField';
+
 
 import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
+//Comment Dialog MUI
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
+
+import Button from '@mui/material/Button';
+
 
 const Show = () => {
 
@@ -99,14 +111,14 @@ const Show = () => {
         })
             .then(response => {
                 console.log(response.data)
-                navigate(`/restaurants/${id}`)
+                setForm({comment: ""})
+                setComments(response.data.comments)
             })
             .catch(err => console.log(err))
     }
 
     if (!restaurant) return null
     if (!comments) return null
-
 
 
     return (
@@ -267,6 +279,7 @@ const Show = () => {
                                         placeholder="Add Comment"
                                         type="text"
                                         name="comment"
+                                        value={form.comment}
                                         onChange={handleForm}
                                     />
                                     <IconButton
@@ -274,7 +287,6 @@ const Show = () => {
                                             display: 'flex',
                                             justifyContent: 'flex-end'
                                         }}
-                                        type='submit'
                                         onClick={submitForm}
                                     >
                                         <AddCircleRoundedIcon color='primary' fontSize='large' />
@@ -286,7 +298,6 @@ const Show = () => {
                 </Card>
             </Grid>
         </Box >
-
     );
 }
 
