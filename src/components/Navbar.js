@@ -37,6 +37,7 @@ const Navbar = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
+    //Handle AccountIcon
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };

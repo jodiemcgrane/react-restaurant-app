@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
+import CommentModal from '../../components/CommentModal'
+
 //MUI
 import { Grid, Box } from '@mui/material';
 import { Typography, Card, CardHeader, CardContent, Avatar, Chip, Stack, Popover, InputBase, Paper } from '@mui/material';
@@ -12,22 +14,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
-import TextField from '@mui/material/TextField';
-
 
 import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 
-//Comment Dialog MUI
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
-
-import Button from '@mui/material/Button';
 
 
 const Show = () => {
@@ -111,15 +102,25 @@ const Show = () => {
         })
             .then(response => {
                 console.log(response.data)
-                setForm({comment: ""})
+                setForm({ comment: "" })
                 setComments(response.data.comments)
             })
             .catch(err => console.log(err))
     }
 
+    //Comment Modal
+    const [isOpen, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     if (!restaurant) return null
     if (!comments) return null
-
 
     return (
         <Box
@@ -240,9 +241,14 @@ const Show = () => {
                                                                 aria-haspopup="true"
                                                                 onMouseEnter={handlePopoverOpen}
                                                                 onMouseLeave={handlePopoverClose}
+                                                                onClick={handleClickOpen}
+                                                                
                                                             >
                                                                 <CommentIcon color='primary' fontSize='large' />
                                                             </IconButton>
+
+                                                            <CommentModal isOpen={isOpen} handleClose={handleClose} comments={comments}/>
+
                                                             <Popover
                                                                 id="mouse-over-popover"
                                                                 sx={{
