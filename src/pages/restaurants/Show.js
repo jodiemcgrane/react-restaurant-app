@@ -31,18 +31,8 @@ const Show = () => {
     bottom: 25%;
 `;
 
-    //Popover
-    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
 
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
 
     //Restaurant & Comments
 
@@ -108,19 +98,106 @@ const Show = () => {
             .catch(err => console.log(err))
     }
 
-    //Comment Modal
-    const [isOpen, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     if (!restaurant) return null
     if (!comments) return null
+
+    const Comment = (props) => {
+
+
+        //Popover
+        const [anchorEl, setAnchorEl] = useState(null);
+        const open = Boolean(anchorEl);
+
+        const handlePopoverOpen = (event) => {
+            setAnchorEl(event.currentTarget);
+        };
+
+        const handlePopoverClose = () => {
+            setAnchorEl(null);
+        };
+
+        //Comment Modal
+        const [isOpen, setOpen] = useState(false);
+
+        const handleClickOpen = () => {
+            setOpen(true);
+        };
+
+        const handleClose = () => {
+            setOpen(false);
+        };
+
+        return (
+            <ListItem>
+
+                <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: '#1976D2' }}>
+                        <AccountCircle color='inherit' />
+                    </Avatar>
+                </ListItemAvatar>
+
+                <ListItemText
+                    primary={props.comment.name}
+                    secondary={
+                        <>
+                            <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                            >
+                                {props.comment.text}
+                            </Typography>
+                            <br />
+                            {" — " + moment(props.comment.date).format('LL')}
+
+                        </>
+                    }
+                />
+                <Stack sx={{ mt: 1.5 }}>
+                    <IconButton
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end'
+                        }}
+                        aria-owns={open ? 'mouse-over-popover' : undefined}
+                        aria-haspopup="true"
+                        onMouseEnter={handlePopoverOpen}
+                        onMouseLeave={handlePopoverClose}
+                        onClick={handleClickOpen}
+
+                    >
+                        <CommentIcon color='primary' fontSize='large' />
+                    </IconButton>
+
+                    <CommentModal isOpen={isOpen} handleClose={handleClose} comment={props.comment} />
+
+                    <Popover
+                        id="mouse-over-popover"
+                        sx={{
+                            pointerEvents: 'none',
+                        }}
+                        open={open}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        onClose={handlePopoverClose}
+                        disableRestoreFocus
+                    >
+                        <Typography sx={{ p: 1 }}>See More</Typography>
+                    </Popover>
+                </Stack>
+            </ListItem>
+        )
+    }
 
     return (
         <Box
@@ -203,74 +280,9 @@ const Show = () => {
                                 />) : (
                                     <List>
                                         {comments
-                                            .map((comments) => {
+                                            .map((comment) => {
                                                 return (
-                                                    <ListItem>
-
-                                                        <ListItemAvatar>
-                                                            <Avatar sx={{ bgcolor: '#1976D2' }}>
-                                                                <AccountCircle color='inherit' />
-                                                            </Avatar>
-                                                        </ListItemAvatar>
-
-                                                        <ListItemText
-                                                            primary={comments.name}
-                                                            secondary={
-                                                                <>
-                                                                    <Typography
-                                                                        sx={{ display: 'inline' }}
-                                                                        component="span"
-                                                                        variant="body2"
-                                                                        color="text.primary"
-                                                                    >
-                                                                        {comments.text}
-                                                                    </Typography>
-                                                                    <br />
-                                                                    {" — " + moment(comments.date).format('LL')}
-
-                                                                </>
-                                                            }
-                                                        />
-                                                        <Stack sx={{ mt: 1.5 }}>
-                                                            <IconButton
-                                                                sx={{
-                                                                    display: 'flex',
-                                                                    justifyContent: 'flex-end'
-                                                                }}
-                                                                aria-owns={open ? 'mouse-over-popover' : undefined}
-                                                                aria-haspopup="true"
-                                                                onMouseEnter={handlePopoverOpen}
-                                                                onMouseLeave={handlePopoverClose}
-                                                                onClick={handleClickOpen}
-                                                                
-                                                            >
-                                                                <CommentIcon color='primary' fontSize='large' />
-                                                            </IconButton>
-
-                                                            <CommentModal isOpen={isOpen} handleClose={handleClose} comments={comments}/>
-
-                                                            <Popover
-                                                                id="mouse-over-popover"
-                                                                sx={{
-                                                                    pointerEvents: 'none',
-                                                                }}
-                                                                open={open}
-                                                                anchorEl={anchorEl}
-                                                                anchorOrigin={{
-                                                                    vertical: 'bottom',
-                                                                    horizontal: 'center',
-                                                                }}
-                                                                transformOrigin={{
-                                                                    vertical: 'top',
-                                                                    horizontal: 'center',
-                                                                }}
-                                                                onClose={handlePopoverClose}
-                                                                disableRestoreFocus
-                                                            >
-                                                                <Typography sx={{ p: 1 }}>See More</Typography>
-                                                            </Popover>
-                                                        </Stack>
-                                                    </ListItem>
+                                                    <Comment key={comment._id} comment={comment} />
                                                 );
                                             })}
                                     </List>
