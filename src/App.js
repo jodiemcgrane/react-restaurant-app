@@ -54,7 +54,7 @@ function App() {
       <Container sx={{ p: 15 }}>
         <Routes>
           <Route exact path="/" element={<Welcome onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/restaurants" element={<RestaurantsIndex />} />
           <Route path="/user" element={<UserIndex />} />

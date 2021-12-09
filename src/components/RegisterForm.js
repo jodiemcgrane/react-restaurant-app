@@ -63,6 +63,7 @@ const RegisterForm = (props) => {
                             id="outlined-basic"
                             label="Name"
                             type="name"
+                            name="name"
                             variant="outlined"
                             onChange={handleForm}
                             sx={{ m: 1.5 }} />
@@ -71,6 +72,7 @@ const RegisterForm = (props) => {
                             id="outlined-basic"
                             label="Email"
                             type="email"
+                            name="email"
                             variant="outlined"
                             onChange={handleForm}
                             sx={{ m: 1.5 }} />
@@ -79,6 +81,7 @@ const RegisterForm = (props) => {
                             id="outlined-basic"
                             label="Password"
                             type="password"
+                            name="password"
                             variant="outlined"
                             onChange={handleForm}
                             sx={{ m: 1.5 }} />
