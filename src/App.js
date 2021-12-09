@@ -16,6 +16,9 @@ import Home from './pages/Home';
 import RestaurantsIndex from './pages/restaurants/Index';
 import RestaurantsShow from './pages/restaurants/Show';
 
+//Comments
+import CommentsEdit from './pages/comments/Edit';
+
 //User
 import UserIndex from './pages/user/Index';
 
@@ -44,6 +47,7 @@ function App() {
     protectedRestaurants = (
       <>
         <Route path="/restaurants/:id" element={<RestaurantsShow />} />
+        <Route path="/comments/:id/edit" element={<CommentsEdit />} />
       </>
     )
   }
