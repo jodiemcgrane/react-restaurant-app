@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import * as React from 'react';
 import moment from 'moment'
 
@@ -57,18 +58,21 @@ const CommentModal = (props) => {
                             </Typography>
                         </Stack>
 
-                        
-                            <Typography variant="body1" sx={{ mt: 2 }}>
-                                {props.comment.text}
-                            </Typography>
 
-                            <Typography variant="body1" sx={{ mt: 2}}>
-                                {"Posted on " + moment(props.comment.date).format('LLLL')}
-                            </Typography>
+                        <Typography variant="body1" sx={{ mt: 2 }}>
+                            {props.comment.text}
+                        </Typography>
+
+                        <Typography variant="body1" sx={{ mt: 2 }}>
+                            {"Posted on " + moment(props.comment.date).format('LLLL')}
+                        </Typography>
 
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
+                    <Link to={`${props.comment._id}/edit`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                        <Button variant="outlined" color="warning" onClick={props.handleClose}>Edit</Button>
+                    </Link>
                     <Button onClick={props.handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>

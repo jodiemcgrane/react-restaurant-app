@@ -47,7 +47,7 @@ function App() {
     protectedRestaurants = (
       <>
         <Route path="/restaurants/:id" element={<RestaurantsShow />} />
-        <Route path="/comments/:id/edit" element={<CommentsEdit />} />
+        <Route path="/restaurants/:id/:id/edit" element={<CommentsEdit />} />
       </>
     )
   }
