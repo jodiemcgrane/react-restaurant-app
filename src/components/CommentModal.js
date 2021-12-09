@@ -58,9 +58,10 @@ const CommentModal = (props) => {
                             </Typography>
                         </Stack>
 
-
                         <Typography variant="body1" sx={{ mt: 2 }}>
                             {props.comment.text}
+                            <br />
+                            {props.comment._id}
                         </Typography>
 
                         <Typography variant="body1" sx={{ mt: 2 }}>
@@ -70,7 +71,7 @@ const CommentModal = (props) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Link to={`${props.comment._id}/edit`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <Link to={`/comment/${props.comment._id}/edit`} style={{ color: 'inherit', textDecoration: 'inherit' }}>
                         <Button variant="outlined" color="warning" onClick={props.handleClose}>Edit</Button>
                     </Link>
                     <Button onClick={props.handleClose}>Close</Button>
