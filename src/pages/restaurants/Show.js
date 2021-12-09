@@ -20,7 +20,6 @@ import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
 
-
 const Show = () => {
 
     //Loader CSS
@@ -31,15 +30,13 @@ const Show = () => {
     bottom: 25%;
 `;
 
-
-
-
     //Restaurant & Comments
 
     let navigate = useNavigate()
     let { id } = useParams()
     const [restaurant, setRestaurant] = useState(null)
     const [comments, setComments] = useState([])
+
     const [loading, setLoading] = useState(false);
 
     let token = localStorage.getItem('token')
@@ -98,13 +95,12 @@ const Show = () => {
             .catch(err => console.log(err))
     }
 
-
-
     if (!restaurant) return null
     if (!comments) return null
 
-    const Comment = (props) => {
+    //Comment Component
 
+    const Comment = (props) => {
 
         //Popover
         const [anchorEl, setAnchorEl] = useState(null);
@@ -152,7 +148,6 @@ const Show = () => {
                             </Typography>
                             <br />
                             {" — " + moment(props.comment.date).format('LL')}
-
                         </>
                     }
                 />
@@ -167,7 +162,6 @@ const Show = () => {
                         onMouseEnter={handlePopoverOpen}
                         onMouseLeave={handlePopoverClose}
                         onClick={handleClickOpen}
-
                     >
                         <CommentIcon color='primary' fontSize='large' />
                     </IconButton>
