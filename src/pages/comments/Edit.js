@@ -48,23 +48,28 @@ const Edit = () => {
             }
         })
             .then(response => {
+                console.log(response.data)
                 navigate("/restaurants")
             })
             .catch(err => console.log(err))
     }
 
     const submitDelete = () => {
+        console.log(form)
+
         let token = localStorage.getItem('token')
 
-        axios.delete(`http://localhost:8000/comments/delete`, form, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
+        axios.delete(`http://localhost:8000/comments/delete`, {
+            data: { comment_id: id },
+            headers: { "Authorization": `Bearer ${token}` }
         })
             .then(response => {
-                
+                console.log(response.data)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err.stack)
+                console.log(err.response)
+            })
     }
 
     return (
