@@ -22,7 +22,6 @@ const Edit = () => {
     let { id } = useParams()
 
     const [form, setForm] = useState({})
-    //const [comment, setComment] = useState({})
 
     useEffect(() => {
         setForm({
@@ -50,6 +49,20 @@ const Edit = () => {
         })
             .then(response => {
                 navigate("/restaurants")
+            })
+            .catch(err => console.log(err))
+    }
+
+    const submitDelete = () => {
+        let token = localStorage.getItem('token')
+
+        axios.delete(`http://localhost:8000/comments/delete`, form, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                
             })
             .catch(err => console.log(err))
     }
@@ -118,7 +131,11 @@ const Edit = () => {
                     <Button variant="text" startIcon={<ArrowBackOutlinedIcon />} sx={{ ml: 1, mb: 1 }}>
                         Restaurants
                     </Button>
+
                 </Link>
+                <Button onClick={submitDelete} variant="outlined" sx={{ ml: 1, mb: 1 }}>
+                    Delete
+                </Button>
 
             </Card>
         </Grid>
