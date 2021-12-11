@@ -13,12 +13,14 @@ import {
     CardContent,
     TextField,
     Button,
+    IconButton,
     Divider
 } from '@mui/material';
 
 //MUI Icons
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Edit = () => {
 
@@ -138,15 +140,21 @@ const Edit = () => {
                     </Box >
                 </CardContent>
 
-                <Link to="/restaurants">
-                    <Button variant="text" startIcon={<ArrowBackOutlinedIcon />} sx={{ ml: 1, mb: 1 }}>
-                        Restaurants
-                    </Button>
+                <Stack direction="row"
+                    justifyContent="space-around"
+                    alignItems="center"
+                    spacing={18}
+                >
+                    <Link to="/restaurants">
+                        <Button variant="text" startIcon={<ArrowBackOutlinedIcon />} sx={{ mb: 2 }}>
+                            Restaurants
+                        </Button>
 
-                </Link>
-                <Button onClick={submitDelete} variant="outlined" sx={{ ml: 1, mb: 1 }}>
-                    Delete
-                </Button>
+                    </Link>
+                    <IconButton onClick={submitDelete} variant="outlined" color="error" sx={{ mb: 2 }}>
+                        <DeleteOutlineIcon />
+                    </IconButton>
+                </Stack>
 
             </Card>
         </Grid>
