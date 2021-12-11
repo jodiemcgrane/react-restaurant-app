@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import Welcome from './pages/Welcome';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import PageNotFound from './pages/PageNotFound';
 
 //Restaurants Pages
 import RestaurantsIndex from './pages/restaurants/Index';
@@ -60,6 +61,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/restaurants" element={<RestaurantsIndex />} />
           {protectedRestaurants}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Container>
     </Router>
