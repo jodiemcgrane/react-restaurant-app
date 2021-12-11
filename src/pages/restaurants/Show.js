@@ -1,22 +1,42 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import axios from 'axios'
+import axios from '../../config';
+
+//MomentJs
 import moment from 'moment'
 
+//Components
 import CommentModal from '../../components/CommentModal'
 
 //MUI
-import { Grid, Box } from '@mui/material';
-import { Typography, Card, CardHeader, CardContent, Avatar, Chip, Stack, Popover, InputBase, Paper } from '@mui/material';
+import {
+    Grid,
+    Box,
+    Typography,
+    Card,
+    CardHeader,
+    CardContent,
+    Avatar,
+    Chip,
+    Stack,
+    Popover,
+    InputBase,
+    Paper,
+    IconButton,
+    ListItemText,
+    List,
+    ListItem,
+    ListItemAvatar
+} from '@mui/material';
+
+//MUI Icons
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
-import { ListItemText, List, ListItem, ListItemAvatar } from '@mui/material';
-
+//React Spinner
 import PulseLoader from "react-spinners/PulseLoader";
 import { css } from "@emotion/react";
 
@@ -43,7 +63,7 @@ const Show = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:8000/restaurants/${id}`, {
+        axios.get(`/restaurants/${id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -82,7 +102,7 @@ const Show = () => {
 
         let token = localStorage.getItem('token')
 
-        axios.post('http://localhost:8000/comments/create', form, {
+        axios.post('/comments/create', form, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

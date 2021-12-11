@@ -1,16 +1,21 @@
-import axios from "axios"
+import axios from './../config';
+
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 
+//Styles
 import * as styles from '../styles/form.module.css'
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+//MUI
+import {
+    Grid,
+    Box,
+    TextField,
+    FormGroup,
+    FormControl,
+    Button,
+    Typography
+} from '@mui/material';
 
 const RegisterForm = (props) => {
 
@@ -29,7 +34,7 @@ const RegisterForm = (props) => {
     const submitForm = () => {
         console.log(form)
 
-        axios.post(`http://localhost:8000/users/register`, {
+        axios.post(`/users/register`, {
             name: form.name,
             email: form.email,
             password: form.password

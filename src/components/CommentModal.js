@@ -13,6 +13,7 @@ import { Avatar, Typography } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Stack from '@mui/material/Stack';
 
+//MUI Transitions for Modal
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -22,7 +23,6 @@ const CommentModal = (props) => {
         <div>
             <Dialog
                 open={props.isOpen}
-                //keepMounted
                 TransitionComponent={Transition}
                 onClose={props.handleClose}
                 aria-describedby="alert-dialog-slide-description"

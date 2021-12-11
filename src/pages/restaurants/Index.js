@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from '../../config';
+
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 
 //MUI
-import { Box, Paper, Typography, Stack } from "@mui/material";
+import { Box, Paper, Typography, Stack, Avatar } from "@mui/material";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import Avatar from '@mui/material/Avatar';
 
-//Table+ MUI
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { Chip, Tooltip, Fade } from '@mui/material';
+//Table MUI
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, Tooltip, Fade } from '@mui/material';
 
+//React Spinner
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 
@@ -18,9 +18,9 @@ const Index = () => {
 
     const override = css`
     position: fixed;/
-  top: 50%;
-  left: 45%;
-  bottom: 25%;
+    top: 50%;
+    left: 45%;
+    bottom: 25%;
 `;
 
     //Restaurants
@@ -30,7 +30,7 @@ const Index = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get('http://localhost:8000/restaurants')
+        axios.get(`/restaurants`)
             .then(response => {
                 console.log(response.data.restaurants)
                 setRestaurants(response.data.restaurants)

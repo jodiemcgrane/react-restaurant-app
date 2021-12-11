@@ -1,13 +1,14 @@
+//Components
 import LoginForm from "../components/LoginForm";
 
+//Styles
 import * as styles from '../styles/images.module.css'
 
+//Images
 import LoginImage from '../images/login.svg'
 
 //MUI
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { Grid, Card, CardContent } from '@mui/material';
 
 const Welcome = (props) => {
     return (

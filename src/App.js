@@ -12,15 +12,12 @@ import Welcome from './pages/Welcome';
 import Register from './pages/Register';
 import Home from './pages/Home';
 
-//Restaurants
+//Restaurants Pages
 import RestaurantsIndex from './pages/restaurants/Index';
 import RestaurantsShow from './pages/restaurants/Show';
 
-//Comments
+//Comments Pages
 import CommentsEdit from './pages/comments/Edit';
-
-//User
-import UserIndex from './pages/user/Index';
 
 function App() {
 
@@ -43,6 +40,7 @@ function App() {
     }
   }
 
+  //Protected routes - must be authenticated
   if (authenticated) {
     protectedRestaurants = (
       <>
@@ -61,7 +59,6 @@ function App() {
           <Route path="/register" element={<Register onAuthenticated={onAuthenticated} authenticated={authenticated} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/restaurants" element={<RestaurantsIndex />} />
-          <Route path="/user" element={<UserIndex />} />
           {protectedRestaurants}
         </Routes>
       </Container>

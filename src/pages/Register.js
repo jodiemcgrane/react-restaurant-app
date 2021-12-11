@@ -1,13 +1,14 @@
+//Components
 import RegisterForm from '../components/RegisterForm';
 
+//Styles
 import * as styles from '../styles/images.module.css'
 
+//Images
 import RegisterImage from '../images/register.svg'
 
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
+//MUI
+import { Grid, Card, CardContent } from '@mui/material';
 
 const Register = (props) => {
 

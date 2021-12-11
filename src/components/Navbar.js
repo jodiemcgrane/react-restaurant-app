@@ -1,28 +1,31 @@
 import { Link, useNavigate } from "react-router-dom";
-
-import { styled, useTheme } from '@mui/material/styles';
-
 import { useState } from "react"
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+//MUI Themes
+import { styled, useTheme } from '@mui/material/styles';
 
-//Sidebar
-import Drawer from '@mui/material/Drawer';
+//MUI
+import { 
+    AppBar, 
+    Box, 
+    Toolbar,
+    Typography, 
+    IconButton, 
+    Menu, 
+    MenuItem,
+    Drawer,
+    Divider,
+    List,
+    ListItemButton,
+    ListItemText,
+    ListItemIcon
+} from '@mui/material';
+
+//MUI Icons
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 
@@ -76,7 +79,7 @@ const Navbar = (props) => {
     let burgerButton;
 
     if (props.authenticated) {
-        //soft bracket for multiple lines of JSX, error if not
+        //Soft bracket for multiple lines of JSX, error if not
         accountIcon = (
             <>
                 <IconButton

@@ -1,20 +1,24 @@
+import axios from '../../config';
+
 import { useState, useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import axios from 'axios'
+//MUI
+import {
+    Grid,
+    Box,
+    Stack,
+    Typography,
+    Card,
+    CardContent,
+    TextField,
+    Button,
+    Divider
+} from '@mui/material';
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-
-import Typography from '@mui/material/Typography';
+//MUI Icons
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
-import { TextField, Button, Divider } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const Edit = () => {
 
@@ -42,29 +46,31 @@ const Edit = () => {
 
         let token = localStorage.getItem('token')
 
-        axios.put(`http://localhost:8000/comments/update`, form, {
+        axios.put(`/comments/update`, form, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         })
             .then(response => {
                 console.log(response.data)
-                navigate("/restaurants")
+                navigate('/restaurants', { replace: true })
             })
             .catch(err => console.log(err))
     }
 
+    //Delete
     const submitDelete = () => {
         console.log(form)
 
         let token = localStorage.getItem('token')
 
-        axios.delete(`http://localhost:8000/comments/delete`, {
+        axios.delete(`/comments/delete`, {
             data: { comment_id: id },
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then(response => {
                 console.log(response.data)
+                navigate('/restaurants', { replace: true })
             })
             .catch(err => {
                 console.log(err.stack)
