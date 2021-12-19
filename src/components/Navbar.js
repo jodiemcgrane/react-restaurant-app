@@ -63,6 +63,7 @@ const Navbar = (props) => {
     }));
 
     const theme = useTheme();
+    
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {

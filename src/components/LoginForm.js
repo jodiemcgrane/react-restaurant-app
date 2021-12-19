@@ -21,7 +21,7 @@ const LoginForm = (props) => {
 
     let navigate = useNavigate();
 
-    const [form, setForm] = useState({ email: "jodie@middle.earth", password: "secret123" })
+    const [form, setForm] = useState({})
 
     const handleForm = e => {
 
@@ -67,6 +67,7 @@ const LoginForm = (props) => {
                             id="outlined-basic"
                             label="Email"
                             type="email"
+                            name="email"
                             variant="outlined"
                             onChange={handleForm}
                             sx={{ m: 1.5 }} />
@@ -75,6 +76,7 @@ const LoginForm = (props) => {
                             id="outlined-basic"
                             label="Password"
                             type="password"
+                            name="password"
                             variant="outlined"
                             onChange={handleForm}
                             sx={{ m: 1.5 }} />
