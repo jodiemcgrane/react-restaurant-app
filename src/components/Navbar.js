@@ -5,13 +5,13 @@ import { useState } from "react"
 import { styled, useTheme } from '@mui/material/styles';
 
 //MUI
-import { 
-    AppBar, 
-    Box, 
+import {
+    AppBar,
+    Box,
     Toolbar,
-    Typography, 
-    IconButton, 
-    Menu, 
+    Typography,
+    IconButton,
+    Menu,
     MenuItem,
     Drawer,
     Divider,
@@ -63,7 +63,7 @@ const Navbar = (props) => {
     }));
 
     const theme = useTheme();
-    
+
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as styles from '../styles/form.module.css'
 
 //MUI
-import { 
+import {
     Grid,
     Box,
     TextField,
@@ -15,7 +15,7 @@ import {
     FormControl,
     Button,
     Typography
- } from '@mui/material';
+} from '@mui/material';
 
 const LoginForm = (props) => {
 
